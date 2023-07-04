@@ -43,6 +43,7 @@ You can download the project by using the green "Code" button.
  
 
 Or by pasting the following code in your CMD:
+https://github.com/krasimiraruseva1/bubolechka2.git
 ```
 ## Thank you for using our app
 If you support and like our project, you can always share it with people on social media.
