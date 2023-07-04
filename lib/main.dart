@@ -3,8 +3,6 @@ import 'package:bubolechka2/language_selector.dart';
 import 'package:bubolechka2/models/bubo_category.dart';
 import 'package:flutter/material.dart';
 
-import 'bubo_card_viewer.dart';
-
 void main() {
   runApp(const BuboApp());
 }
@@ -16,7 +14,7 @@ class BuboApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Bubolechka 2',
+      title: 'Krasie',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -52,7 +50,7 @@ class _BuboHomePageState extends State<BuboHomePage> {
             constraints: const BoxConstraints.expand(),
             decoration: const BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage('assets/main_background.png'),
+                    image: AssetImage('assets/background.png'),
                     fit: BoxFit.cover)),
             child: null,
           ),
@@ -77,8 +75,8 @@ class _BuboHomePageState extends State<BuboHomePage> {
           Positioned(
             bottom: 30,
             left: 30,
-            width: 200,
-            child: Image.asset('assets/bubo_logo.png'),
+            width: 260,
+            child: Image.asset('assets/l_logo.png'),
           ),
         ],
       ),
@@ -94,14 +92,14 @@ class _BuboHomePageState extends State<BuboHomePage> {
 ///
 class BuboCategoryViewer extends StatelessWidget {
   final String language;
-  BuboCategoryViewer(this.language, {super.key});
+  const BuboCategoryViewer(this.language, {super.key});
 
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
 
-    var widthPerCategory = 270;
+    var widthPerCategory = 300;
     //print('Device size is: $width x $height');
     if (width > widthPerCategory) {
       var itemsPerRow = (width / widthPerCategory).floor();
@@ -109,10 +107,9 @@ class BuboCategoryViewer extends StatelessWidget {
       //print('items per row: $itemsPerRow, rows: $rows');
 
       return GridView.count(
-        childAspectRatio: width / itemsPerRow / widthPerCategory,
         mainAxisSpacing: 10,
-        crossAxisSpacing: 10,
-        crossAxisCount: itemsPerRow,
+        crossAxisSpacing: 0,
+        crossAxisCount: 4,
         children: buboCategories.map((buboCategory) {
           return BuboCategoryListItem(language, buboCategory);
         }).toList(),
@@ -181,20 +178,24 @@ class BuboCategoryListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 270,
-      height: 270,
-      child: GestureDetector(
-        onTap: () => {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => BuboCardViewer(category.cards, language),
+    return Column(children: [
+      Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(category.image, width: 250, fit: BoxFit.fill),
+          Text(
+              category.translatedLabels[language]!,
+              style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
+                  color: Colors.white),
             ),
-          )
-        },
-        child: _viewWithContainer(),
+        ],
       ),
-    );
+      Container(
+        height: 10,
+      )
+    ]);
   }
 
   Widget _viewWithStack() {

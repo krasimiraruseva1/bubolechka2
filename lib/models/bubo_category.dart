@@ -1,5 +1,3 @@
-import 'bubo_card.dart';
-
 ///
 /// Data structure for categories
 ///
@@ -15,7 +13,6 @@ class BuboCategory {
   int id;
   String image;
   Map<String, String> translatedLabels;
-  List<BuboCard> cards;
 
-  BuboCategory(this.id, this.image, this.translatedLabels, this.cards);
+  BuboCategory(this.id, this.image, this.translatedLabels);
 }
